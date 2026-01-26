@@ -104,7 +104,6 @@ module Fog
               :namespace => service.namespace,
             },
             :spec => {
-              :running => false,
               :template => {
                 :metadata => {
                   :creationTimestamp => nil,

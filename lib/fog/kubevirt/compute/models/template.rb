@@ -81,9 +81,6 @@ module Fog
           vm = param_substitution!(vm, params)
           os_labels = labels || {}
           vm = deep_merge!(vm,
-            :spec     => {
-              :running  => false
-            },
             :metadata => {
               :namespace => namespace
             }

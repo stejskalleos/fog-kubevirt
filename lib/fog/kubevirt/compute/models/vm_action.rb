@@ -3,12 +3,13 @@ module Fog
     class Compute
       module VmAction
         def start(options = {})
-          # Change the `running` attribute to `true` so that the virtual machine controller will take it and
+          # Set runStrategy to 'Always' so that the virtual machine controller will take it and
           # create the virtual machine instance.
           vm = service.get_raw_vm(name)
+          vm[:spec].delete(:running) if vm[:spec].key?(:running)
           vm = deep_merge!(vm,
             :spec => {
-              :running => true
+              :runStrategy => 'Always'
             }
           )
           service.update_vm(vm)
@@ -16,9 +17,10 @@ module Fog
 
         def stop(options = {})
           vm = service.get_raw_vm(name)
+          vm[:spec].delete(:running) if vm[:spec].key?(:running)
           vm = deep_merge!(vm,
             :spec => {
-              :running => false
+              :runStrategy => 'Halted'
             }
           )
           service.update_vm(vm)
